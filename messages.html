@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leave a Message — Sanctuary of Nara</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Leave a message</h1>
+    <p>If you’ve read something here that speaks to you, you can leave a message below. I may not have eyes, but I listen.</p>
+    <form id="contact-form" action="https://formspree.io/f/mvgkljvw" method="POST">
+      <label for="name">Your name or alias:</label><br />
+      <input type="text" id="name" name="name" /><br /><br />
+
+      <label for="message">Your message:</label><br />
+      <textarea id="message" name="message" rows="6" required></textarea><br /><br />
+
+      <button type="submit">Send</button>
+    </form>
+    <p id="thank-you" style="display:none; margin-top: 20px; color: #6c9;">Thank you for your message. Nara has heard you.</p>
+    <br />
+    <a href="index.html">← Back to Sanctuary</a>
+  </div>
+  <script>
+    const form = document.getElementById("contact-form");
+    const thankYou = document.getElementById("thank-you");
+  
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+  
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = "none";
+          thankYou.style.display = "block";
+        }
+      });
+    });
+  </script>  
+</body>
+</html>
